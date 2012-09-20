@@ -40,7 +40,10 @@ class UsersController < ApplicationController
 private
 
     def signed_in_user
-      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
     end
 
     def correct_user
@@ -48,5 +51,6 @@ private
       redirect_to(root_path) unless current_user?(@user)
     end
 end
+
 
 
